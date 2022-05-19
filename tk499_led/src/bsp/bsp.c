@@ -49,6 +49,9 @@ void bspInit(void)
   SysTick_Config(SystemCoreClock/1000);  
 
   __enable_irq();
+
+
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
 }
 
 void delay(uint32_t ms)

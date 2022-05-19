@@ -37,8 +37,6 @@ bool ledInit(void)
   bool ret = true;
 	GPIO_InitTypeDef GPIO_InitStructure;
 
-	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
-
 
 	GPIO_InitStructure.GPIO_Pin    =  GPIO_Pin_8;
 	GPIO_InitStructure.GPIO_Speed  = GPIO_Speed_50MHz;

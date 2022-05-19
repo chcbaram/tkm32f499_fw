@@ -4,6 +4,21 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "configure",
+      "type": "shell",
+      "command": "cmake -S . -B build -G 'MinGW Makefiles' "
+    },
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "cmake --build build -j20"
+    },
+    {
+      "label": "clean",
+      "type": "shell",
+      "command": "cmake --build build --target clean"
+    },    
+    {
       "label": "down_fw",
       "type": "shell",
       "command": "tools/stm32cli com38 2000000 fw 0x8010000 build/stm32f4_player.bin 1"
