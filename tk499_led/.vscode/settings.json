@@ -1,0 +1,6 @@
+{
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "files.associations": {
+    "core_cm4.h": "c"
+  }
+}
