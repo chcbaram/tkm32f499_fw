@@ -1,14 +1,34 @@
 {
   "configurations": [
   {
-    "cwd": "${workspaceRoot}",
-    "executable": "./build/CanAnalyzer.elf",
-    "name": "Debug CanAnalyzer",
+    "cwd": "${workspaceFolder}",
+    "executable": "./build/tk499_fw.elf",
+    "name": "Debug with JLink",
     "request": "launch",
     "type": "cortex-debug",
-    "showDevDebugOutput": false,
-    "servertype": "stlink",
-    "svdFile": "./tools/STM32H7x3.svd"
+    "device": "Cortex-M4",
+    "runToEntryPoint": "main",
+    "showDevDebugOutput": "none",    
+    "servertype": "jlink",
+    //"debugServerPath": "C:/Program Files/SEGGER/JLink/JLinkGDBServerCLExe",
+    "preLaunchCommands": [
+      "monitor reset run",
+      "monitor sleep 200",
+      "monitor halt",
+      "monitor memU32 0x40023820 = 0x00002000", // Enble SRAM
+      "monitor memU32 0x20000000 = 0xBF00BF00", // NOP
+      "monitor memU32 0x20000004 = 0xBF00BF00", // NOP
+      "monitor memU32 0x20000008 = 0xE7FEE7FE", // B .
+      "monitor reg pc = 0x20000000"             // PC to Start of SRAM
+    ],      
+    "postLaunchCommands": [
+
+      "break main",
+
+      "monitor regs",
+      "monitor reg sp = (0x70008000)",
+      "monitor reg pc = (0x70008004)"      
+    ],
   }
   ]
 }

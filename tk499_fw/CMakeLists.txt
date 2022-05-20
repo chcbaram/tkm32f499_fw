@@ -4,7 +4,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/tools")
 include(arm-none-eabi-gcc)
 
 
-set(PRJ_NAME tk499_led)
+set(PRJ_NAME tk499_fw)
 
 
 project(${PRJ_NAME}
@@ -73,6 +73,7 @@ target_compile_options(${EXECUTABLE} PRIVATE
   -specs=nano.specs
 
   -O0
+  -g3
   )
 
 target_link_options(${EXECUTABLE} PRIVATE
