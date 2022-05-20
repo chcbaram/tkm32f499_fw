@@ -17,7 +17,7 @@ find_program(CMAKE_MAKE_PROGRAM
   HINTS c:/MinGW-32/bin ) 
 
   
-set(TOOLCHAIN_PREFIX ${ARM_TOOLCHAIN_DIR}/bin/arm-none-eabi-)
+set(TOOLCHAIN_PREFIX ${ARM_TOOLCHAIN_DIR}/arm-none-eabi-)
 
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
