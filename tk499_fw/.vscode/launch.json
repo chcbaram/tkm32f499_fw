@@ -1,34 +1,77 @@
 {
   "configurations": [
-  {
-    "cwd": "${workspaceFolder}",
-    "executable": "./build/tk499_fw.elf",
-    "name": "Debug with JLink",
-    "request": "launch",
-    "type": "cortex-debug",
-    "device": "Cortex-M4",
-    "runToEntryPoint": "main",
-    "showDevDebugOutput": "none",    
-    "servertype": "jlink",
-    //"debugServerPath": "C:/Program Files/SEGGER/JLink/JLinkGDBServerCLExe",
-    "preLaunchCommands": [
-      "monitor reset run",
-      "monitor sleep 200",
-      "monitor halt",
-      "monitor memU32 0x40023820 = 0x00002000", // Enble SRAM
-      "monitor memU32 0x20000000 = 0xBF00BF00", // NOP
-      "monitor memU32 0x20000004 = 0xBF00BF00", // NOP
-      "monitor memU32 0x20000008 = 0xE7FEE7FE", // B .
-      "monitor reg pc = 0x20000000"             // PC to Start of SRAM
-    ],      
-    "postLaunchCommands": [
+    {
+      "cwd": "${workspaceRoot}",
+      "executable": "./build/tk499_fw.elf",
+      "name": "Debug with OpenOCD",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "openocd",
+      "configFiles": [
+        "interface/stlink.cfg",
+        "target/tkm32f499.cfg"
+      ],
+      "toolchainPath": "D:/tools/build_tools/gcc-arm-none-eabi-10-2020-q4-major/bin",
+      "serverpath": "D:/tools/build_tools/openocd/openocd-picoprobe-0.10.0/openocd.exe",
+      "searchDir": ["D:/tools/build_tools/openocd/openocd-picoprobe-0.10.0/scripts"],
+      "runToEntryPoint": "main",
+      "showDevDebugOutput": "none",
+      "postRestartCommands": [        
+        "break main",
+        "continue"
+      ],
+      "preLaunchCommands": [
+        "monitor reset run",
+        "monitor sleep 200",
 
-      "break main",
+        "monitor mww 0x40023820 0x00002000", // Enble SRAM
+        "monitor mww 0x20000000 0xBF00BF00", // NOP
+        "monitor mww 0x20000004 0xBF00BF00", // NOP
+        "monitor mww 0x20000008 0xE7FEE7FE", // B .
 
-      "monitor regs",
-      "monitor reg sp = (0x70008000)",
-      "monitor reg pc = (0x70008004)"      
-    ],
-  }
+        "monitor reg pc 0x20000000",
+        "monitor reg pc",
+        "monitor echo preLaunchCommnads"
+      ],    
+      "postLaunchCommands": [
+        "break main",
+
+        "monitor reg sp [mrw 0x70008000]",
+        "monitor reg pc [mrw 0x70008004]", 
+
+        "monitor reg pc",
+        "monitor echo postLaunchCommands"
+      ],          
+    },
+    {
+      "cwd": "${workspaceFolder}",
+      "executable": "./build/tk499_fw.elf",
+      "name": "Debug with JLink",
+      "request": "launch",
+      "type": "cortex-debug",
+      "device": "Cortex-M4",
+      "runToEntryPoint": "main",
+      "showDevDebugOutput": "none",    
+      "servertype": "jlink",
+      //"debugServerPath": "C:/Program Files/SEGGER/JLink/JLinkGDBServerCLExe",
+      "preLaunchCommands": [
+        "monitor reset run",
+        "monitor sleep 200",
+        "monitor halt",
+        "monitor memU32 0x40023820 = 0x00002000", // Enble SRAM
+        "monitor memU32 0x20000000 = 0xBF00BF00", // NOP
+        "monitor memU32 0x20000004 = 0xBF00BF00", // NOP
+        "monitor memU32 0x20000008 = 0xE7FEE7FE", // B .
+        "monitor reg pc = 0x20000000"             // PC to Start of SRAM
+      ],      
+      "postLaunchCommands": [
+
+        "break main",
+
+        "monitor regs",
+        "monitor reg sp = (0x70008000)",
+        "monitor reg pc = (0x70008004)"      
+      ],
+    }
   ]
 }
