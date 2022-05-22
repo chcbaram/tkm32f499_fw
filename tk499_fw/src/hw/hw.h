@@ -37,6 +37,9 @@
 #include "esp.h"
 #include "pwm.h"
 #include "dxl.h"
+#include "cdc.h"
+#include "log.h"
+
 
 void hwInit(void);
 

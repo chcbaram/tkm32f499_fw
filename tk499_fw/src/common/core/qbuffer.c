@@ -1,9 +1,11 @@
 /*
  * qbuffer.c
  *
- *  Created on: 2020. 12. 11.
+ *  Created on: Nov 12, 2021
  *      Author: baram
  */
+
+
 
 
 #include "qbuffer.h"
@@ -60,10 +62,11 @@ bool qbufferWrite(qbuffer_t *p_node, uint8_t *p_data, uint32_t length)
         uint8_t *p_buf;
 
         p_buf = &p_node->p_buf[p_node->in*p_node->size];
-        for (int i=0; i<p_node->size; i++)
+        for (int j=0; j<p_node->size; j++)
         {
-          p_buf[i] = p_data[i];
+          p_buf[j] = p_data[j];
         }
+        p_data += p_node->size;
       }
       p_node->in = next_in;
     }
@@ -89,10 +92,12 @@ bool qbufferRead(qbuffer_t *p_node, uint8_t *p_data, uint32_t length)
       uint8_t *p_buf;
 
       p_buf = &p_node->p_buf[p_node->out*p_node->size];
-      for (int i=0; i<p_node->size; i++)
+      for (int j=0; j<p_node->size; j++)
       {
-        p_data[i] = p_buf[i];
+        p_data[j] = p_buf[j];
       }
+
+      p_data += p_node->size;
     }
 
     if (p_node->out != p_node->in)
@@ -125,7 +130,7 @@ uint32_t qbufferAvailable(qbuffer_t *p_node)
   uint32_t ret;
 
 
-  ret = (p_node->in - p_node->out) % p_node->len;
+  ret = (p_node->len + p_node->in - p_node->out) % p_node->len;
 
   return ret;
 }

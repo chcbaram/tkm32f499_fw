@@ -47,6 +47,7 @@ void bspInit(void)
   //
   getSystemClock(&SystemCoreClock);
   SysTick_Config(SystemCoreClock/1000);  
+  NVIC_SetPriority(SysTick_IRQn, 0);
 
   __enable_irq();
 

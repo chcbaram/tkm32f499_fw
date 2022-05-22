@@ -26,6 +26,7 @@ file(GLOB_RECURSE SRC_FILES_RECURSE CONFIGURE_DEPENDS
   src/ap/*.c
   src/common/*.c    
   lib/Hal_lib/src/*.c
+  lib/Usb_lib/*.c
 )
 
 add_executable(${EXECUTABLE} 
@@ -52,6 +53,7 @@ target_include_directories(${EXECUTABLE} PRIVATE
   lib/CMSIS/Include
   lib/CMSIS/DSP/Include
   lib/Hal_lib/inc
+  lib/Usb_lib
 )
 
 target_compile_definitions(${EXECUTABLE} PRIVATE

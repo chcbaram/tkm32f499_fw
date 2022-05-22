@@ -16,16 +16,18 @@
 #include "def.h"
 
 
-#define _USE_LOG_PRINT    1
-
-#if _USE_LOG_PRINT
-#define logPrintf(fmt, ...)     printf(fmt, ##__VA_ARGS__)
-#else
-#define logPrintf(fmt, ...)
-#endif
-
-
 #include "HAL_conf.h"
+
+
+void logPrintf(const char *fmt, ...);
+
+#if 1
+#define LOG_ERROR_(fmt, ...) \
+    logPrintf("%s:%d:error: " fmt "%s\n", __FILE__, __LINE__, __VA_ARGS__)
+#define LOG_ERROR(...) LOG_ERROR_(__VA_ARGS__, "")
+#else
+#define LOG_ERROR(...)
+#endif
 
 
 void bspInit(void);
