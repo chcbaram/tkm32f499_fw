@@ -11,11 +11,13 @@
 
 
 static volatile uint32_t systick_counter = 0;
-static uint32_t SystemCoreClock = 240000000;
+uint32_t SystemCoreClock = 240000000;
 
 
 void SysTick_Handler(void)
 {
+  osSystickHandler();
+
   systick_counter++;
 }
 
@@ -64,7 +66,8 @@ void delay(uint32_t ms)
   }
   else
   {
-    HAL_Delay(ms);
+    uint32_t pre_time = systick_counter;
+    while(systick_counter-pre_time < ms);  
   }
 #else
   uint32_t pre_time = systick_counter;

@@ -12,8 +12,6 @@
 
 void hwInit(void)
 {
-  bspInit();
-
   cliInit();
   logInit();
   ledInit();

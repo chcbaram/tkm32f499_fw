@@ -17,6 +17,11 @@ set(EXECUTABLE ${PRJ_NAME}.elf)
 
 file(GLOB SRC_FILES CONFIGURE_DEPENDS
   src/bsp/*.c
+  src/bsp/FreeRTOS/*.c
+  src/bsp/FreeRTOS/Source/*.c
+  src/bsp/FreeRTOS/Source/portable/GCC/ARM_CM4F/*.c
+  src/bsp/FreeRTOS/Source/CMSIS_RTOS/*.c
+
   src/hw/*.c
   src/hw/driver/*.c
 )
@@ -33,6 +38,7 @@ add_executable(${EXECUTABLE}
   src/main.c
   src/bsp/startup/startup_tkm32f499.s
 
+  src/bsp/FreeRTOS/Source/portable/MemMang/heap_4.c
   ${SRC_FILES}
   ${SRC_FILES_RECURSE}
 )
@@ -50,6 +56,11 @@ target_include_directories(${EXECUTABLE} PRIVATE
   src/hw
   lib
   
+  src/bsp/FreeRTOS
+  src/bsp/FreeRTOS/Source/CMSIS_RTOS
+  src/bsp/FreeRTOS/Source/include
+  src/bsp/FreeRTOS/Source/portable/GCC/ARM_CM4F
+
   lib/CMSIS/Include
   lib/CMSIS/DSP/Include
   lib/Hal_lib/inc

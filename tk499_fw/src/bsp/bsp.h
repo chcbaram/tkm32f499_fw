@@ -17,6 +17,7 @@
 
 
 #include "HAL_conf.h"
+#include "rtos.h"
 
 
 void logPrintf(const char *fmt, ...);
