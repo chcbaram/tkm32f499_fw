@@ -4,9 +4,14 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "configure",
+      "label": "configure Win",
       "type": "shell",
       "command": "cmake -S . -B build -G 'MinGW Makefiles' "
+    },
+    {
+      "label": "configure Mac",
+      "type": "shell",
+      "command": "cmake -S . -B build "
     },
     {
       "label": "build",
